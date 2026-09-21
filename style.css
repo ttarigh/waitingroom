@@ -192,22 +192,31 @@ body.page-yellow .manifesto-link:hover {
   transition: color 0.25s ease;
 }
 
-/* Faded text for inactive manifesto lines (grayed out even more, non-clickable) */
+/* Faded text for inactive manifesto lines */
 .faded-line,
 .manifesto-line.is-faded {
-  color: rgba(0, 0, 0, 0.07);
-  pointer-events: none;
-  user-select: none;
-  cursor: default;
+  color: rgba(0, 0, 0, 0.08);
+  transition: color 0.25s ease;
 }
 
+/* Links inside faded lines remain clickable */
 .faded-line a,
-.faded-line u,
-.manifesto-line.is-faded .manifesto-link {
+.manifesto-line.is-faded .manifesto-link,
+.manifesto-footer.is-faded .manifesto-link {
   color: inherit;
-  text-decoration-color: rgba(0, 0, 0, 0.07);
-  pointer-events: none;
-  cursor: default;
+  text-decoration: underline;
+  text-decoration-color: rgba(0, 0, 0, 0.15);
+  pointer-events: auto;
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28' fill='none'%3E%3Cpath d='M8 20L20 8M8 8h12v12' stroke='%23ffffff' stroke-width='4.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M8 20L20 8M8 8h12v12' stroke='%23000000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") 20 8, pointer;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.faded-line a:hover,
+.manifesto-line.is-faded .manifesto-link:hover,
+.manifesto-footer.is-faded .manifesto-link:hover {
+  color: #000000;
+  text-decoration-color: #000000;
+  background-color: rgba(0, 0, 0, 0.08);
 }
 
 .active-line,

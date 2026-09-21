@@ -21,14 +21,14 @@
           <button class="inline-back-btn" id="backBtn" aria-label="Back to home" title="Back to home">←</button><span class="wr-logo">WAITING ROOM</span> is <span class="manifesto-link">a software</span> that keeps us human.
         </p>
         <div class="blurb-box">${BLURBS.software}</div>
-        <p class="manifesto-line is-faded"><span class="wr-logo">WAITING ROOM</span> is <u>the office furniture</u> of the future.</p>
+        <p class="manifesto-line is-faded"><span class="wr-logo">WAITING ROOM</span> is <a href="#furniture" class="manifesto-link" data-target="furniture">the office furniture</a> of the future.</p>
       `;
     } else if (state === 'furniture') {
       document.body.classList.add('page-yellow');
       if (manifestoFooter) manifestoFooter.classList.add('is-faded');
       manifestoBox.innerHTML = `
         <p class="manifesto-line is-faded"><span class="wr-logo">WAITING ROOM</span> is every room AI is in.</p>
-        <p class="manifesto-line is-faded"><span class="wr-logo">WAITING ROOM</span> is <u>a software</u> that keeps us human.</p>
+        <p class="manifesto-line is-faded"><span class="wr-logo">WAITING ROOM</span> is <a href="#software" class="manifesto-link" data-target="software">a software</a> that keeps us human.</p>
         <p class="manifesto-line is-active">
           <button class="inline-back-btn" id="backBtn" aria-label="Back to home" title="Back to home">←</button><span class="wr-logo">WAITING ROOM</span> is <span class="manifesto-link">the office furniture</span> of the future.
         </p>
