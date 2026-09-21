@@ -1,0 +1,303 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  color: #000000;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  overflow: hidden;
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* --- Frames 1-6: Segmented Loading Spinner --- */
+.spinner-box {
+  position: absolute;
+  width: clamp(480px, 62vw, 680px);
+  height: clamp(480px, 62vw, 680px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner-svg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform-origin: 50% 50%;
+  animation: iosSpin 1s steps(12) infinite;
+}
+
+/* Pause the spinner before WAITING ROOM appears */
+.spinner-svg.paused {
+  animation-play-state: paused;
+}
+
+@keyframes iosSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Font inside spinner is kept the same uniform size */
+.spinner-text {
+  position: relative;
+  z-index: 2;
+  font-size: clamp(20px, 2.4vw, 26px);
+  font-weight: 400;
+  text-align: center;
+  max-width: 62%;
+  line-height: 1.35;
+  white-space: pre-wrap;
+}
+
+/* Blinking typing cursor */
+.cursor {
+  display: inline-block;
+  width: 1.5px;
+  height: 1.1em;
+  background: #000000;
+  vertical-align: -2px;
+  margin-left: 2px;
+  animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* --- Frame 7: WAITING ROOM Title (Are.na / Design Twitter Vibe) --- */
+.title-box {
+  display: none;
+  position: absolute;
+  text-align: center;
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: clamp(68px, 12vw, 120px);
+  font-weight: 400;
+  line-height: 0.92;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  animation: growTitle 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes growTitle {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* --- Frame 8: Manifesto Box (Higher up on the screen, bigger font) --- */
+.manifesto-box {
+  display: none;
+  position: absolute;
+  top: 18vh;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(880px, 86vw);
+  font-size: clamp(22px, 2.7vw, 32px);
+  line-height: 1.6;
+  letter-spacing: -0.015em;
+  text-align: left;
+}
+
+.manifesto-box p {
+  min-height: 1.6em;
+  margin-bottom: 4px;
+}
+
+/* Stylized WAITING ROOM logo font in the manifesto */
+.wr-logo {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 1.15em;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+
+.manifesto-box .spacer {
+  height: 1.5em;
+}
+
+/* Clickable underlined links with hover grayness and up-right arrow cursor */
+.manifesto-link {
+  color: #000000;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1.5px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  display: inline;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  /* Up-right arrow cursor (↗) with crisp high-contrast stroke */
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28' fill='none'%3E%3Cpath d='M8 20L20 8M8 8h12v12' stroke='%23ffffff' stroke-width='4.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M8 20L20 8M8 8h12v12' stroke='%23000000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") 20 8, pointer;
+}
+
+.manifesto-link:hover {
+  background-color: #ededed;
+  color: #222222;
+}
+
+/* Back link for subpages */
+.back-link {
+  color: #000000;
+  text-decoration: none;
+  font-size: 0.8em;
+  opacity: 0.5;
+  transition: opacity 0.15s ease;
+}
+
+.back-link:hover {
+  opacity: 1;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* --- Yellow Background for Detail States (/software, /furniture) --- */
+body.page-yellow,
+html:has(body.page-yellow) {
+  background-color: #ffff00;
+}
+
+body.page-yellow .manifesto-link:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+  color: #000000;
+}
+
+.manifesto-line {
+  min-height: 1.6em;
+  margin-bottom: 4px;
+  position: relative;
+  transition: color 0.25s ease;
+}
+
+/* Faded text for inactive manifesto lines (grayed out even more, non-clickable) */
+.faded-line,
+.manifesto-line.is-faded {
+  color: rgba(0, 0, 0, 0.07);
+  pointer-events: none;
+  user-select: none;
+  cursor: default;
+}
+
+.faded-line a,
+.faded-line u,
+.manifesto-line.is-faded .manifesto-link {
+  color: inherit;
+  text-decoration-color: rgba(0, 0, 0, 0.07);
+  pointer-events: none;
+  cursor: default;
+}
+
+.active-line,
+.manifesto-line.is-active {
+  color: #000000;
+  position: relative;
+}
+
+.manifesto-line.is-active .manifesto-link {
+  text-decoration: underline;
+  pointer-events: none;
+  cursor: default;
+}
+
+/* Detail blurb under the active statement */
+.blurb-box {
+  color: #000000;
+  font-size: clamp(15px, 1.6vw, 18px);
+  line-height: 1.6;
+  max-width: 640px;
+  margin: 0.75rem 0 1.25rem 0;
+  letter-spacing: -0.01em;
+  font-weight: 400;
+  animation: fadeInBlurb 0.3s ease forwards;
+}
+
+@keyframes fadeInBlurb {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Back button appearing to the left of the active sentence */
+.inline-back-btn {
+  position: absolute;
+  right: calc(100% + 14px);
+  top: 0;
+  text-decoration: none;
+  color: #000000;
+  font-size: 0.95em;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.6;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  transition: transform 0.15s ease;
+}
+
+.inline-back-btn:hover {
+  transform: translateX(-4px);
+}
+
+@media (max-width: 768px) {
+  .inline-back-btn {
+    position: static;
+    display: inline-block;
+    margin-right: 0.5rem;
+  }
+}
+
+/* Manifesto footer near the bottom of the screen */
+.manifesto-footer {
+  position: absolute;
+  bottom: clamp(2.5rem, 6vh, 4.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(880px, 86vw);
+  font-size: clamp(22px, 2.7vw, 32px);
+  line-height: 1.6;
+  letter-spacing: -0.015em;
+  text-align: left;
+  transition: color 0.25s ease;
+}
+
+.manifesto-footer.is-faded {
+  color: rgba(0, 0, 0, 0.07);
+  pointer-events: none;
+  user-select: none;
+  cursor: default;
+}
+
+.manifesto-footer.is-faded .manifesto-link {
+  color: inherit;
+  text-decoration-color: rgba(0, 0, 0, 0.07);
+  pointer-events: none;
+  cursor: default;
+}
