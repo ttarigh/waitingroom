@@ -60,6 +60,20 @@
     if (el) el.remove();
   }
 
+  function getAssetUrl(file) {
+    const s = document.querySelector('script[src*="home.js"], script[src*="script.js"]');
+    if (s && s.src) {
+      try {
+        return new URL(file, s.src).href;
+      } catch (e) {}
+    }
+    const path = window.location.pathname;
+    if (path.includes('/waitingroom')) {
+      return '/waitingroom/' + file;
+    }
+    return './' + file;
+  }
+
   function showSoftwareVideos() {
     removeSoftwareVideos();
 
@@ -69,10 +83,10 @@
     wrapper.innerHTML = `
       <div class="software-videos-row">
         <div id="videoTopRight" class="software-video software-video-top-right">
-          <video src="/faces2.mp4" autoplay muted loop playsinline></video>
+          <video src="${getAssetUrl('faces2.mp4')}" autoplay muted loop playsinline></video>
         </div>
         <div id="videoBottomLeft" class="software-video software-video-bottom-left">
-          <video src="/faces1.mp4" autoplay muted loop playsinline></video>
+          <video src="${getAssetUrl('faces1.mp4')}" autoplay muted loop playsinline></video>
         </div>
       </div>
       <div id="ephemeralTextContainer" class="ephemeral-text-container"></div>
@@ -164,16 +178,16 @@
     el.innerHTML = `
       <div class="furniture-stills-grid">
         <div id="item-chair" class="furniture-item furniture-chair stop-motion-step-chair" data-id="chair">
-          <img src="/furniture_chair.webp" alt="Alert Passivity Recliner Chair" class="furniture-img" draggable="false" />
+          <img src="${getAssetUrl('furniture_chair.webp')}" alt="Alert Passivity Recliner Chair" class="furniture-img" draggable="false" />
         </div>
         <div id="item-slot" class="furniture-item furniture-slot stop-motion-step" data-id="slot">
-          <img src="/furniture_slot.webp" alt="Slot Machine Desk" class="furniture-img" draggable="false" />
+          <img src="${getAssetUrl('furniture_slot.webp')}" alt="Slot Machine Desk" class="furniture-img" draggable="false" />
         </div>
         <div id="item-cover" class="furniture-item furniture-cover stop-motion-step-cover" data-id="cover">
-          <img src="/furniture_cover.webp" alt="Laptop Keyboard Cover ('GENERATE')" class="furniture-img" draggable="false" />
+          <img src="${getAssetUrl('furniture_cover.webp')}" alt="Laptop Keyboard Cover ('GENERATE')" class="furniture-img" draggable="false" />
         </div>
         <div id="item-exersaucer" class="furniture-item furniture-exersaucer stop-motion-step-alt" data-id="exersaucer">
-          <img src="/furniture_exersaucer.webp" alt="Neon Adult Exersaucer with Laptop" class="furniture-img" draggable="false" />
+          <img src="${getAssetUrl('furniture_exersaucer.webp')}" alt="Neon Adult Exersaucer with Laptop" class="furniture-img" draggable="false" />
         </div>
       </div>
       <div id="furnitureVisionBox" class="furniture-vision-box">
