@@ -57,25 +57,30 @@
   function showSoftwareVideos() {
     removeSoftwareVideos();
 
-    const vTopRight = document.createElement('div');
-    vTopRight.id = 'videoTopRight';
-    vTopRight.className = 'software-video software-video-top-right';
-    vTopRight.innerHTML = `
-      <video src="/faces2.mp4" autoplay muted loop playsinline></video>
+    const wrapper = document.createElement('div');
+    wrapper.id = 'softwareVideosWrapper';
+    wrapper.className = 'software-videos-container';
+    wrapper.innerHTML = `
+      <div id="videoTopRight" class="software-video software-video-top-right">
+        <video src="/faces2.mp4" autoplay muted loop playsinline></video>
+      </div>
+      <div id="videoBottomLeft" class="software-video software-video-bottom-left">
+        <video src="/faces1.mp4" autoplay muted loop playsinline></video>
+      </div>
     `;
 
-    const vBottomLeft = document.createElement('div');
-    vBottomLeft.id = 'videoBottomLeft';
-    vBottomLeft.className = 'software-video software-video-bottom-left';
-    vBottomLeft.innerHTML = `
-      <video src="/faces1.mp4" autoplay muted loop playsinline></video>
-    `;
-
-    document.body.appendChild(vTopRight);
-    document.body.appendChild(vBottomLeft);
+    const container = document.querySelector('.container') || document.body;
+    const footer = document.getElementById('manifesto-footer');
+    if (footer && footer.parentNode === container) {
+      container.insertBefore(wrapper, footer);
+    } else {
+      container.appendChild(wrapper);
+    }
   }
 
   function removeSoftwareVideos() {
+    const w = document.getElementById('softwareVideosWrapper');
+    if (w) w.remove();
     const v1 = document.getElementById('videoTopRight');
     if (v1) v1.remove();
     const v2 = document.getElementById('videoBottomLeft');
@@ -148,23 +153,33 @@
     el.id = 'furnitureStills';
     el.className = 'furniture-stills-container';
     el.innerHTML = `
-      <div id="item-slot" class="furniture-item furniture-slot stop-motion-step" data-id="slot">
-        <img src="/furniture_slot.webp" alt="Slot Machine Desk" class="furniture-img" draggable="false" />
-      </div>
-      <div id="item-exersaucer" class="furniture-item furniture-exersaucer stop-motion-step-alt" data-id="exersaucer">
-        <img src="/furniture_exersaucer.webp" alt="Neon Adult Exersaucer with Laptop" class="furniture-img" draggable="false" />
-      </div>
-      <div id="item-cover" class="furniture-item furniture-cover stop-motion-step-cover" data-id="cover">
-        <img src="/furniture_cover.webp" alt="Laptop Keyboard Cover ('GENERATE')" class="furniture-img" draggable="false" />
-      </div>
-      <div id="item-chair" class="furniture-item furniture-chair stop-motion-step-chair" data-id="chair">
-        <img src="/furniture_chair.webp" alt="Alert Passivity Recliner Chair" class="furniture-img" draggable="false" />
+      <div class="furniture-stills-grid">
+        <div id="item-chair" class="furniture-item furniture-chair stop-motion-step-chair" data-id="chair">
+          <img src="/furniture_chair.webp" alt="Alert Passivity Recliner Chair" class="furniture-img" draggable="false" />
+        </div>
+        <div id="item-slot" class="furniture-item furniture-slot stop-motion-step" data-id="slot">
+          <img src="/furniture_slot.webp" alt="Slot Machine Desk" class="furniture-img" draggable="false" />
+        </div>
+        <div id="item-cover" class="furniture-item furniture-cover stop-motion-step-cover" data-id="cover">
+          <img src="/furniture_cover.webp" alt="Laptop Keyboard Cover ('GENERATE')" class="furniture-img" draggable="false" />
+        </div>
+        <div id="item-exersaucer" class="furniture-item furniture-exersaucer stop-motion-step-alt" data-id="exersaucer">
+          <img src="/furniture_exersaucer.webp" alt="Neon Adult Exersaucer with Laptop" class="furniture-img" draggable="false" />
+        </div>
       </div>
       <div id="furnitureVisionBox" class="furniture-vision-box">
         <span class="furniture-vision-text"></span><span class="furniture-vision-cursor"></span>
       </div>
     `;
-    document.body.appendChild(el);
+
+    const container = document.querySelector('.container') || document.body;
+    const footer = document.getElementById('manifesto-footer');
+    if (footer && footer.parentNode === container) {
+      container.insertBefore(el, footer);
+    } else {
+      container.appendChild(el);
+    }
+
     startVisionTypewriter();
   }
 
