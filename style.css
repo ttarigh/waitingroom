@@ -149,7 +149,7 @@ html, body {
   text-underline-offset: 4px;
   text-decoration-thickness: 1.5px;
   padding: 1px 2px;
-  border-radius: 4px;
+  border-radius: 0;
   display: inline;
   transition: background-color 0.15s ease, color 0.15s ease;
   /* Up-right arrow cursor (↗) with crisp high-contrast stroke */
@@ -353,7 +353,8 @@ body.page-yellow .manifesto-link:hover {
 .software-video {
   position: fixed;
   z-index: 10;
-  background-color: #d8d8d8;
+  background-color: #000000;
+  border-radius: 0;
   overflow: hidden;
   animation: fadeInVideo 0.4s ease forwards;
 }
@@ -363,6 +364,7 @@ body.page-yellow .manifesto-link:hover {
   height: 100%;
   object-fit: cover;
   display: block;
+  border-radius: 0;
 }
 
 .software-video-top-right {
@@ -390,7 +392,9 @@ body.page-yellow .manifesto-link:hover {
   }
 }
 
-.software-videos-container {
+.software-videos-container,
+.software-videos-row,
+.ephemeral-text-container {
   display: contents;
 }
 
@@ -568,7 +572,7 @@ body.page-yellow .manifesto-link:hover {
   width: clamp(230px, 23vw, 290px);
   background: #d4ff00;
   color: #000000;
-  border-radius: 4px;
+  border-radius: 0;
   padding: 14px 16px;
   font-family: 'VT323', monospace;
   font-size: clamp(17px, 1.35vw, 20px);
@@ -706,12 +710,19 @@ body.page-yellow .manifesto-link:hover {
   /* --- Software View on Mobile --- */
   .software-videos-container {
     display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    width: 100% !important;
+    max-width: 540px !important;
+    margin: 1.25rem auto 1.5rem auto !important;
+  }
+
+  .software-videos-row {
+    display: flex !important;
     justify-content: center !important;
     align-items: center !important;
     gap: 14px !important;
     width: 100% !important;
-    max-width: 540px !important;
-    margin: 1.25rem auto 1.5rem auto !important;
   }
 
   .software-video {
@@ -722,7 +733,7 @@ body.page-yellow .manifesto-link:hover {
     right: auto !important;
     width: clamp(125px, 42vw, 155px) !important;
     height: clamp(125px, 42vw, 155px) !important;
-    border-radius: 8px !important;
+    border-radius: 0 !important;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1) !important;
     background-color: #000000 !important;
     flex-shrink: 0 !important;
@@ -733,16 +744,38 @@ body.page-yellow .manifesto-link:hover {
     height: 100% !important;
     object-fit: cover !important;
     display: block !important;
+    border-radius: 0 !important;
+  }
+
+  /* Ephemeral text positioned strictly BELOW the videos on mobile */
+  .ephemeral-text-container {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    min-height: 48px !important;
+    margin-top: 14px !important;
   }
 
   .ephemeral-text {
-    position: fixed !important;
-    top: 50% !important;
-    left: 50% !important;
-    font-size: clamp(26px, 7.5vw, 40px) !important;
+    position: static !important;
+    transform: none !important;
+    font-size: clamp(24px, 7vw, 34px) !important;
     text-align: center !important;
-    width: 88% !important;
+    width: 100% !important;
     white-space: normal !important;
+    animation: ephemeralMobile 3.4s ease-out forwards !important;
+  }
+
+  @keyframes ephemeralMobile {
+    0% {
+      opacity: 0.85;
+      transform: scale(0.96);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1.08);
+    }
   }
 
   /* --- Furniture View on Mobile --- */
@@ -808,7 +841,7 @@ body.page-yellow .manifesto-link:hover {
     padding: 16px 18px !important;
     font-size: clamp(16px, 4.4vw, 19px) !important;
     line-height: 1.3 !important;
-    border-radius: 6px !important;
+    border-radius: 0 !important;
     min-height: 85px !important;
   }
 }

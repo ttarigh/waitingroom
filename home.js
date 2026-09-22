@@ -34,7 +34,13 @@
       el.id = 'ephemeralText';
       el.className = 'ephemeral-text';
       el.textContent = text;
-      document.body.appendChild(el);
+
+      const container = document.getElementById('ephemeralTextContainer');
+      if (container) {
+        container.appendChild(el);
+      } else {
+        document.body.appendChild(el);
+      }
 
       el.addEventListener('animationend', () => {
         el.remove();
@@ -61,12 +67,15 @@
     wrapper.id = 'softwareVideosWrapper';
     wrapper.className = 'software-videos-container';
     wrapper.innerHTML = `
-      <div id="videoTopRight" class="software-video software-video-top-right">
-        <video src="/faces2.mp4" autoplay muted loop playsinline></video>
+      <div class="software-videos-row">
+        <div id="videoTopRight" class="software-video software-video-top-right">
+          <video src="/faces2.mp4" autoplay muted loop playsinline></video>
+        </div>
+        <div id="videoBottomLeft" class="software-video software-video-bottom-left">
+          <video src="/faces1.mp4" autoplay muted loop playsinline></video>
+        </div>
       </div>
-      <div id="videoBottomLeft" class="software-video software-video-bottom-left">
-        <video src="/faces1.mp4" autoplay muted loop playsinline></video>
-      </div>
+      <div id="ephemeralTextContainer" class="ephemeral-text-container"></div>
     `;
 
     const container = document.querySelector('.container') || document.body;
