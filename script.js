@@ -137,7 +137,24 @@ const BLURBS = {
   furniture: `As AI handles cognitive production, human labor shifts from acting to awaiting. This speculative installation imagines office furniture designed for the contested future of work: chairs engineered for alert passivity, desks optimized for screen-watching, and casino-inspired ergonomics built around waiting rather than working.`
 };
 
+function triggerEphemeralText(text) {
+  const existing = document.getElementById('ephemeralText');
+  if (existing) existing.remove();
+
+  const el = document.createElement('div');
+  el.id = 'ephemeralText';
+  el.className = 'ephemeral-text';
+  el.textContent = text;
+  document.body.appendChild(el);
+
+  el.addEventListener('animationend', () => {
+    el.remove();
+  });
+}
+
 function renderHomeState(state) {
+  const existingEphem = document.getElementById('ephemeralText');
+
   if (manifestoFooter) {
     manifestoFooter.style.display = 'block';
     manifestoFooter.classList.toggle('is-faded', state !== 'default');
@@ -145,6 +162,7 @@ function renderHomeState(state) {
   }
 
   if (state === 'software') {
+    triggerEphemeralText('omegle for waiting?');
     document.body.classList.add('page-yellow');
     manifestoBox.innerHTML = `
       <p class="manifesto-line is-faded"><span class="wr-logo">WAITING ROOM</span> is every room AI is in.</p>
@@ -155,6 +173,7 @@ function renderHomeState(state) {
       <p class="manifesto-line is-faded"><span class="wr-logo">WAITING ROOM</span> is <a href="#furniture" class="manifesto-link" data-target="furniture">the office furniture</a> of the future.</p>
     `;
   } else if (state === 'furniture') {
+    if (existingEphem) existingEphem.remove();
     document.body.classList.add('page-yellow');
     manifestoBox.innerHTML = `
       <p class="manifesto-line is-faded"><span class="wr-logo">WAITING ROOM</span> is every room AI is in.</p>
@@ -165,6 +184,7 @@ function renderHomeState(state) {
       <div class="blurb-box">${BLURBS.furniture}</div>
     `;
   } else {
+    if (existingEphem) existingEphem.remove();
     document.body.classList.remove('page-yellow');
     manifestoBox.innerHTML = `
       <p class="manifesto-line"><span class="wr-logo">WAITING ROOM</span> is every room AI is in.</p>
@@ -179,6 +199,8 @@ async function runSequence() {
   currentText = '';
 
   // Reset displays and states
+  const existingEphem = document.getElementById('ephemeralText');
+  if (existingEphem) existingEphem.remove();
   document.body.classList.remove('page-yellow');
   if (manifestoFooter) {
     manifestoFooter.style.display = 'none';

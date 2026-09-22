@@ -310,3 +310,41 @@ body.page-yellow .manifesto-link:hover {
   pointer-events: none;
   cursor: default;
 }
+
+/* Ephemeral floating title for software view ("omegle for waiting?") */
+.ephemeral-text {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
+  font-size: clamp(48px, 9vw, 105px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: #000000;
+  text-align: center;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 50;
+  animation: ephemeralFloat 4.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes ephemeralFloat {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.92);
+  }
+  20% {
+    opacity: 0.95;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  60% {
+    opacity: 0.95;
+    transform: translate(-50%, -50%) scale(1.04);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.24);
+  }
+}
